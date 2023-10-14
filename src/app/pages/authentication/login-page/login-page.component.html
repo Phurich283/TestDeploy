@@ -1,0 +1,44 @@
+<app-auth-bg-template>
+    <ng-container cardBody>
+        <!-- Logo -->
+        <div class="text-center mb-5">
+            <img src="../../../../assets/images/logo_evt.png" class="text-center logo-responsive" alt="Logo_Exvention">
+        </div>
+
+        <form id="form-login" [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+            <!-- Email -->
+            <label for="login-email" class="form-label">อีเมล</label>
+            <input type="email" class="form-control form-control-lg mb-3" id="login-email" placeholder="กรุณากรอกข้อมูล"
+                formControlName="email"
+                [ngClass]="{ 'is-invalid': form['email'].hasError('email')||testError == 400 }" />
+
+            <!-- Password -->
+            <label for="login-password" class="form-label">รหัสผ่าน</label>
+            <div class="input-group">
+                <input [type]="password" class="form-control form-control-lg border border-end-0"
+                    placeholder="กรุณากรอกข้อมูล" formControlName="password" minlength="8" maxlength="16"
+                    [ngClass]="{ 'is-invalid border-danger': testError == 400 }">
+                <span class="input-group-text bg-transparent border border-start-0" id="basic-addon2"
+                    [ngClass]="{ 'is-invalid border-danger': testError == 400 }" (click)="onShowPassword()">
+                    <img src="../../../../assets/icon/show_pw_ic.svg" alt="show password" *ngIf="showPassword">
+                    <img src="../../../../assets/icon/hide_pw_ic.svg" alt="hide password" *ngIf="!showPassword">
+                </span>
+            </div>
+            <div *ngIf="testError == 400" class="invalid-feedback">
+                อีเมลหรือรหัสผ่านไม่ถูกต้อง
+            </div>
+        </form>
+    </ng-container>
+
+    <ng-container cardFooter>
+        <button form="form-login" class="btn-submit w-100" type="submit" [disabled]="submitted||loginForm.invalid">
+            <span *ngIf="submitted" class="spinner-border spinner-border-sm" role="status"></span>
+            {{'เข้าสู่ระบบ'}}
+        </button>
+        <hr class="hr-border mt-4">
+        <div class="text-center mt-3">
+            <a routerLink="/auth/forgot-password" class="text-primary-blue fw-bold text-decoration-none">ลืมรหัสผ่าน
+                ?</a>
+        </div>
+    </ng-container>
+</app-auth-bg-template>
